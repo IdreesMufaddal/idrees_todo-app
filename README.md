@@ -1,15 +1,17 @@
 # To‑Do Application
 
-This project is a simple to‑do application built with React, Context API, and Tailwind CSS. It allows a user to log in with a name, then create, update, delete, and search tasks.
+This project is a simple to‑do application built with React, Context API, and Tailwind CSS. It allows a user to log in with a name, then create, update, delete, and search tasks. In this UI‑enhanced branch, tasks also support optional due dates, times, notes, priority levels and list categorization.
 
 ## Features
 
 - **Login** – a basic login form that asks for your name before accessing the main application.
-- **Add tasks** – create new daily tasks with a text input.
-- **Update tasks** – edit existing tasks inline and save changes.
+- **Add tasks** – create new daily tasks with a title, optional due date and time, notes, priority and list assignment.
+- **Update tasks** – edit an existing task’s title; other details can be updated programmatically.
 - **Delete tasks** – remove tasks you no longer need.
 - **Search tasks** – filter tasks by typing into the search bar.
-- **State management** – uses React’s Context API to manage user information, task list, and search term across the app.
+- **Categorize tasks** – assign tasks to built‑in lists (Home, Personal, Work, Diet, List of Book, Road trip list) or create your own lists on the fly.
+- **Priority & notes** – set a priority level (0–5) and attach free‑form notes to each task.
+- **State management** – uses React’s Context API to manage user information, task list, lists array and search term across the app.
 - **Tailwind CSS** – styled with Tailwind for a clean, responsive interface.
 
 ## File Structure
