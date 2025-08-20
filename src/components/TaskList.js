@@ -14,7 +14,7 @@ const TaskList = () => {
           key={task.id}
           task={task}
           onDelete={() => deleteTask(task.id)}
-          onUpdate={(text) => updateTask(task.id, text)}
+          onUpdate={(updates) => updateTask(task.id, updates)}
         />
       ))}
     </ul>
@@ -31,45 +31,65 @@ const TaskItem = ({ task, onDelete, onUpdate }) => {
 
   const handleSave = () => {
     if (text.trim()) {
-      onUpdate(text.trim());
+      onUpdate({ text: text.trim() });
       setIsEditing(false);
     }
   };
 
   return (
-    <li className="flex items-center justify-between bg-white p-2 border rounded mb-2">
-      {isEditing ? (
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className="flex-grow mr-2 p-1 border rounded"
-        />
-      ) : (
-        <span className="flex-grow">{task.text}</span>
-      )}
-      <div className="space-x-2">
-        {isEditing ? (
+    <li className="bg-white p-3 border rounded mb-2">
+      <div className="flex items-start justify-between">
+        {/* Task title and details */}
+        <div className="flex-grow">
+          {isEditing ? (
+            <input
+              type="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              className="w-full p-1 border rounded mb-1"
+            />
+          ) : (
+            <h3 className="font-medium">{task.text}</h3>
+          )}
+          {/* Details */}
+          {!isEditing && (
+            <div className="text-xs text-gray-600 space-y-0.5">
+              {task.dueDate && (
+                <div>
+                  Due: {task.dueDate}
+                  {task.dueTime ? ` at ${task.dueTime}` : ''}
+                </div>
+              )}
+              {task.list && task.list !== 'No List' && <div>List: {task.list}</div>}
+              {task.priority > 0 && <div>Priority: {task.priority}</div>}
+              {task.notes && <div>Notes: {task.notes}</div>}
+            </div>
+          )}
+        </div>
+        {/* Action buttons */}
+        <div className="flex space-x-2 ml-2">
+          {isEditing ? (
+            <button
+              onClick={handleSave}
+              className="bg-blue-500 text-white px-2 py-1 rounded text-sm hover:bg-blue-600"
+            >
+              Save
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="bg-yellow-400 text-white px-2 py-1 rounded text-sm hover:bg-yellow-500"
+            >
+              Edit
+            </button>
+          )}
           <button
-            onClick={handleSave}
-            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            onClick={onDelete}
+            className="bg-red-500 text-white px-2 py-1 rounded text-sm hover:bg-red-600"
           >
-            Save
+            Delete
           </button>
-        ) : (
-          <button
-            onClick={() => setIsEditing(true)}
-            className="bg-yellow-400 text-white px-2 py-1 rounded hover:bg-yellow-500"
-          >
-            Edit
-          </button>
-        )}
-        <button
-          onClick={onDelete}
-          className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-        >
-          Delete
-        </button>
+        </div>
       </div>
     </li>
   );
